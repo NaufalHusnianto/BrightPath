@@ -12,6 +12,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 class ClassroomResource extends Resource
 {
@@ -34,6 +35,11 @@ class ClassroomResource extends Resource
                 Forms\Components\Select::make('teacher_id')
                     ->relationship('teacher', 'name')
                     ->required(),
+                Forms\Components\TextInput::make('code_classroom')
+                    ->required()
+                    ->default(function () {
+                        return Str::random(6);
+                    }),
             ]);
     }
 
@@ -49,6 +55,9 @@ class ClassroomResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('students.name')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('code_classroom')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')

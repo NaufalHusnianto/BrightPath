@@ -1,7 +1,24 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head, router } from "@inertiajs/react";
+import { useState } from "react";
 
-export default function Dashboard() {
+export default function Dashboard({ classrooms }) {
+    const [code, setCode] = useState("");
+
+    const handleEnroll = async (e) => {
+        e.preventDefault();
+
+        try {
+            await router.post("/enroll-classroom", { code });
+
+            alert("Anda telah berhasil mendaftar ke kelas");
+
+            setCode("");
+        } catch (error) {
+            alert(error);
+        }
+    };
+
     return (
         <AuthenticatedLayout
             header={
@@ -12,13 +29,47 @@ export default function Dashboard() {
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">
-                            You're logged in!
+            <form onSubmit={handleEnroll} className="mb-4">
+                <input
+                    type="text"
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                    placeholder="Masukkan Kode Kelas"
+                    required
+                    className="border rounded p-2 mr-2"
+                />
+                <button
+                    type="submit"
+                    className="bg-blue-500 text-white rounded px-4 py-2"
+                >
+                    Daftar
+                </button>
+            </form>
+
+            <div className="container mx-auto">
+                <h1 className="text-2xl font-bold mb-6">
+                    Classrooms you are enrolled in
+                </h1>
+
+                {/* Jika classroom kosong */}
+                {classrooms.length === 0 && (
+                    <p>You are not enrolled in any classrooms yet.</p>
+                )}
+
+                {/* Tampilkan daftar classroom */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {classrooms.map((classroom) => (
+                        <div
+                            key={classroom.id}
+                            className="bg-white p-4 rounded-lg shadow"
+                        >
+                            <h2 className="text-xl font-semibold">
+                                {classroom.name}
+                            </h2>
+                            <p>{classroom.description}</p>
+                            <p>Teacher: {classroom.teacher.name}</p>
                         </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </AuthenticatedLayout>

@@ -14,34 +14,24 @@ class StudentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'students';
 
-    protected static ?string $recordTitleAttribute = 'name';
-
-    public function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\Select::make('students')
-                    ->relationship('students', 'name')
-                    ->multiple()
-                    ->preload(),
-            ]);
-    }
-
     public function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('email')->sortable()->searchable(),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->action(function ($record) {
+                        $this->ownerRecord->students()->detach($record->id);
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

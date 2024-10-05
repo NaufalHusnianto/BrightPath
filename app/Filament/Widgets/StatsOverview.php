@@ -17,11 +17,11 @@ class StatsOverview extends BaseWidget
                 ->description('All Users')
                 ->descriptionIcon('heroicon-o-users')
                 ->descriptionColor('primary'),
-            Stat::make('Teachers', User::count())
+            Stat::make('Teachers', User::role('teacher')->count())
                 ->description('All Teachers')
                 ->descriptionIcon('heroicon-o-user')
                 ->descriptionColor('primary'),
-            Stat::make('Students', User::count())
+            Stat::make('Students', User::role('student')->count())
                 ->description('All Students')
                 ->descriptionIcon('heroicon-o-users')
                 ->descriptionColor('primary'),

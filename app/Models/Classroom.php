@@ -16,6 +16,7 @@ class Classroom extends Model
         'name',
         'description',
         'teacher_id',
+        'code_classroom',
     ];
 
 

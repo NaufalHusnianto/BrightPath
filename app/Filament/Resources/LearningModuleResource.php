@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\DiscussionsRelationManagerResource\RelationManagers\DiscussionsRelationManager;
 use App\Filament\Resources\LearningModuleResource\Pages;
 use App\Models\LearningModule;
 use Filament\Forms;
@@ -78,7 +79,7 @@ class LearningModuleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            DiscussionsRelationManager::class
         ];
     }
 

@@ -61,6 +61,9 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-question-mark-circle')
                     ->group('Other')
                     ->sort(3)
+            ])
+            ->plugins([
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
             ]);
     }
 }
