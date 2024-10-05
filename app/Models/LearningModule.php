@@ -21,4 +21,15 @@ class LearningModule extends Model
     {
         return $this->belongsTo(Classroom::class);
     }
+
+
+    public static function getGlobalSearchResultTitle(Model $record): string
+    {
+        return $record->title;
+    }
+
+    public static function getGlobalSearchResultUrl(Model $record): ?string
+    {
+        return route('filament.resources.learning-modules.edit', $record);
+    }
 }

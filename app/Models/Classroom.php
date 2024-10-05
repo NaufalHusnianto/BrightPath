@@ -39,4 +39,15 @@ class Classroom extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+
+    public static function getGlobalSearchResultTitle(Model $record): string
+    {
+        return $record->name;
+    }
+
+    public static function getGlobalSearchResultUrl(Model $record): ?string
+    {
+        return route('filament.resources.classrooms.edit', $record);
+    }
 }

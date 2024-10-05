@@ -18,6 +18,8 @@ class LearningModuleResource extends Resource
 
     protected static ?string $navigationGroup = 'Classroom';
 
+    protected static ?string $recordTitleAttribute = 'title';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -28,14 +30,15 @@ class LearningModuleResource extends Resource
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->columnSpanFull(),
+                Forms\Components\Select::make('classroom_id')
+                    ->relationship('classroom', 'name')
+                    ->required(),
                 Forms\Components\RichEditor::make('materi')
+                    ->columnSpanFull()
                     ->required()
                     ->reactive()
                     ->dehydrateStateUsing(fn ($state) => $state),
                 Forms\Components\Hidden::make('image_upload_url')->dehydrateStateUsing(fn ($state) => route('upload.image')),
-                Forms\Components\Select::make('classroom_id')
-                    ->relationship('classroom', 'name')
-                    ->required(),
             ]);
     }
 

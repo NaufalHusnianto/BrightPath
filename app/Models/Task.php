@@ -22,4 +22,16 @@ class Task extends Model
     {
         return $this->hasMany(Submission::class);
     }
+
+
+
+    public static function getGlobalSearchResultTitle(Model $record): string
+    {
+        return $record->title;
+    }
+
+    public static function getGlobalSearchResultUrl(Model $record): ?string
+    {
+        return route('filament.resources.tasks.edit', $record);
+    }
 }
