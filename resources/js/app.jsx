@@ -20,7 +20,9 @@ createInertiaApp({
 
         root.render(
             <NextUIProvider>
-                <App {...props} />
+                <main className="dark text-foreground bg-background">
+                    <App {...props} />
+                </main>
             </NextUIProvider>
         );
     },

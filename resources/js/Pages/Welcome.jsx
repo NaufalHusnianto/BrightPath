@@ -12,7 +12,7 @@ import {
     Button,
 } from "@nextui-org/react";
 
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
+export default function Welcome({ auth }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const menuItems = [
@@ -41,7 +41,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         />
                         <NavbarBrand>
                             <p className="font-extrabold text-xl text-inherit">
-                                BrightPath
+                                Bright
+                                <span className="text-amber-500">Path</span>
                             </p>
                         </NavbarBrand>
                     </NavbarContent>
@@ -71,8 +72,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             <NavbarItem>
                                 <Button
                                     as={Link}
-                                    color="primary"
-                                    variant="solid"
+                                    color="warning"
+                                    variant="flat"
                                     href={route("dashboard")}
                                 >
                                     Dashboard
@@ -91,9 +92,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                 <NavbarItem>
                                     <Button
                                         as={Link}
-                                        color="primary"
+                                        color="warning"
                                         href={route("register")}
-                                        variant="solid"
+                                        variant="flat"
                                     >
                                         Sign Up
                                     </Button>
@@ -122,33 +123,93 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         ))}
                     </NavbarMenu>
                 </Navbar>
-            </main>
 
-            {/* <nav className="-mx-3 flex flex-1 justify-end">
-                {auth.user ? (
-                    <Link
-                        href={route("dashboard")}
-                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                    >
-                        Dashboard
-                    </Link>
-                ) : (
-                    <>
-                        <Link
-                            href={route("login")}
-                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Log in
-                        </Link>
-                        <Link
-                            href={route("register")}
-                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Register
-                        </Link>
-                    </>
-                )}
-            </nav> */}
+                <div className="max-w-6xl text-center py-20 mx-auto">
+                    <h4 className="text-4xl font-bold">
+                        Selamat Datang di{" "}
+                        <span className="text-amber-500">BrightPath</span>
+                    </h4>
+                    <h1 className="text-6xl font-bold py-4 text-inherit">
+                        Platform Pembelajaran Yang Membantu Anda Belajar Lebih
+                        Efektif.
+                    </h1>
+                    <div className="py-4 space-x-4">
+                        {!auth.user ? (
+                            <>
+                                <Button
+                                    as={Link}
+                                    href={route("dashboard")}
+                                    color="warning"
+                                    variant="bordered"
+                                >
+                                    Login Sebagai Siswa
+                                </Button>
+                                <Button
+                                    as={Link}
+                                    href={"/admin"}
+                                    color="warning"
+                                    variant="bordered"
+                                >
+                                    Login Sebagai Guru
+                                </Button>
+                            </>
+                        ) : (
+                            <Button
+                                as={Link}
+                                href={
+                                    auth.user && auth.user.role === "guru"
+                                        ? "/admin"
+                                        : "/dashboard"
+                                }
+                                color="warning"
+                                variant="bordered"
+                            >
+                                {auth.user && auth.user.role === "guru"
+                                    ? "Login Sebagai Guru"
+                                    : "Login Sebagai Siswa"}
+                            </Button>
+                        )}
+                    </div>
+                </div>
+
+                <div className="py-20 max-w-5xl mx-auto text-center">
+                    <h2 className="text-3xl font-bold mb-10">Fitur Utama</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                        <div className="border p-5 rounded shadow">
+                            <h3 className="text-xl font-semibold">
+                                Pembelajaran yang Disesuaikan
+                            </h3>
+                            <p className="mt-2">
+                                Deskripsi singkat tentang fitur ini.
+                            </p>
+                        </div>
+                        <div className="border p-5 rounded shadow">
+                            <h3 className="text-xl font-semibold">
+                                Kelas Interaktif
+                            </h3>
+                            <p className="mt-2">
+                                Deskripsi singkat tentang fitur ini.
+                            </p>
+                        </div>
+                        <div className="border p-5 rounded shadow">
+                            <h3 className="text-xl font-semibold">
+                                Pengelolaan Tugas yang Mudah
+                            </h3>
+                            <p className="mt-2">
+                                Deskripsi singkat tentang fitur ini.
+                            </p>
+                        </div>
+                        <div className="border p-5 rounded shadow">
+                            <h3 className="text-xl font-semibold">
+                                Pelaporan dan Analitik
+                            </h3>
+                            <p className="mt-2">
+                                Deskripsi singkat tentang fitur ini.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </>
     );
 }

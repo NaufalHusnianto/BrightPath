@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class EnrollmentController extends Controller
 {
-    public function enroll(Request $request)
+    public function enroll(Request $request): RedirectResponse
     {
         $request->validate([
             'code' => 'required|string|exists:classrooms,code_classroom',
