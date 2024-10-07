@@ -62,7 +62,7 @@ export default function Authenticated({ header, children }) {
                                                 {user.name}
 
                                                 <Avatar
-                                                    src={user.profile_photo_url}
+                                                    src={`http://brightpath.test/storage/${user.photo_profile}`}
                                                     isBordered
                                                 />
                                             </button>

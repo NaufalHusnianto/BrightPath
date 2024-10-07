@@ -53,7 +53,10 @@ export default function Classroom({ classroom_data }) {
                         </span>
                     </p>
                 </div>
-                <Avatar src={classroom_data.teacher.profile_photo} size="lg" />
+                <Avatar
+                    src={`http://brightpath.test/storage/${classroom_data.teacher.photo_profile}`}
+                    size="lg"
+                />
             </div>
 
             <div className="w-full p-8 space-y-6">

@@ -4,12 +4,15 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SubmissionRelationManagerResource\RelationManagers\SubmissionsRelationManager;
 use App\Filament\Resources\TaskResource\Pages;
+use App\Models\Classroom;
 use App\Models\Task;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class TaskResource extends Resource
 {
@@ -23,6 +26,8 @@ class TaskResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $user = User::find(Auth::user()->id);
+
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
@@ -33,13 +38,29 @@ class TaskResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\Select::make('classroom_id')
                     ->relationship('classroom', 'name')
-                    ->required(),
+                    ->required()
+                    ->options(function () use ($user) {
+                        if ($user->hasRole('super_admin')) {
+                            return Classroom::all()->pluck('name', 'id');
+                        }
+                        
+                        return Classroom::where('teacher_id', $user->id)->pluck('name', 'id');
+                    }),
             ]);
     }
 
     public static function table(Table $table): Table
     {
+        $user = User::find(Auth::user()->id);
+
         return $table
+            ->query(
+            $user->hasRole('super_admin') 
+                ? Task::query() 
+                : Task::whereHas('classroom', function ($query) use ($user) {
+                    $query->where('teacher_id', $user->id);
+                })
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),

@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class UserResource extends Resource
 {
@@ -16,7 +17,19 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
-    protected static ?string $navigationGroup = 'Filament Shield';
+    public static function getNavigationGroup(): ?string
+    {
+        $user = User::find(Auth::user()->id);
+        
+        return $user->hasRole('teacher') ? 'Classroom' : 'Filament Shield';
+    }
+
+    public static function getLabel(): ?string
+    {
+        $user = User::find(Auth::user()->id);
+
+        return $user->hasRole('teacher') ? 'MyStudent' : 'User';
+    }
 
     public static function form(Form $form): Form
     {
@@ -44,9 +57,20 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $user = User::find(Auth::user()->id);
+
         return $table
+            ->query(
+                $user->hasRole('super_admin') 
+                ? User::query() 
+                : User::whereHas('roles', function ($query)  {
+                    $query->where('name', 'student');
+                })->whereHas('classroomsAsStudent', function ($query) use ($user) {
+                    $query->where('teacher_id', $user->id);
+                })
+            )
             ->columns([
-                Tables\Columns\TextColumn::make('photo_profile')
+                Tables\Columns\ImageColumn::make('photo_profile')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),

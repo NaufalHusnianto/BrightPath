@@ -3,9 +3,11 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Task;
+use App\Models\User;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Support\Facades\Auth;
 
 class TaskSubmissionTable extends BaseWidget
 {
@@ -15,10 +17,20 @@ class TaskSubmissionTable extends BaseWidget
 
     public function table(Table $table): Table
     {
+        $user = User::find(Auth::user()->id);
+
+        $query = Task::query()
+            ->withCount('submissions')
+            ->with('classroom');
+
+        if ($user->hasRole('teacher')) {
+            $query->whereHas('classroom', function ($q) use ($user) {
+                $q->where('teacher_id', $user->id);
+            });
+        }
+
         return $table
-            ->query(
-                Task::query()->withCount('submissions')->with('classroom')
-            )
+            ->query($query)
             ->columns([
                 Tables\Columns\TextColumn::make('classroom.name')
                     ->label('Classroom')

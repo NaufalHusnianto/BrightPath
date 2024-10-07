@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Filament\AvatarProviders\Contracts\AvatarProvider;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 

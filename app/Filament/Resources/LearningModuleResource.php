@@ -4,12 +4,15 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DiscussionsRelationManagerResource\RelationManagers\DiscussionsRelationManager;
 use App\Filament\Resources\LearningModuleResource\Pages;
+use App\Models\Classroom;
 use App\Models\LearningModule;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class LearningModuleResource extends Resource
 {
@@ -23,6 +26,8 @@ class LearningModuleResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $user = User::find(Auth::user()->id);
+
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
@@ -33,7 +38,14 @@ class LearningModuleResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\Select::make('classroom_id')
                     ->relationship('classroom', 'name')
-                    ->required(),
+                    ->required()
+                    ->options(function () use ($user) {
+                        if ($user->hasRole('super_admin')) {
+                            return Classroom::all()->pluck('name', 'id');
+                        }
+                        
+                        return Classroom::where('teacher_id', $user->id)->pluck('name', 'id');
+                    }),
                 Forms\Components\RichEditor::make('materi')
                     ->columnSpanFull()
                     ->required()
@@ -45,7 +57,16 @@ class LearningModuleResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $user = User::find(Auth::user()->id);
+
         return $table
+            ->query(
+            $user->hasRole('super_admin') 
+                ? LearningModule::query() 
+                : LearningModule::whereHas('classroom', function ($query) use ($user) {
+                    $query->where('teacher_id', $user->id);
+                })
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
