@@ -17,12 +17,11 @@ class SubmissionsRelationManager extends RelationManager
     public function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\TextInput::make('file_path')
-                ->label('File Path')
-                ->disabled(),
-            Forms\Components\TextInput::make('user.name')
-                ->label('Submitted by')
-                ->disabled(),
+            Forms\Components\TextInput::make('score')
+                ->label('Score')
+                ->numeric(),
+            Forms\Components\Textarea::make('feedback')
+                ->label('Feedback'),
         ]);
     }
 
@@ -37,6 +36,7 @@ class SubmissionsRelationManager extends RelationManager
                     ->label('Submission File')
                     ->url(fn ($record) => asset('storage/' . $record->file_path), true)
                     ->openUrlInNewTab(),
+                Tables\Columns\TextColumn::make('score'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Submitted At')
                     ->dateTime(),
