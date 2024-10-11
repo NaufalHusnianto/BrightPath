@@ -48,6 +48,7 @@ class LearningModuleResource extends Resource
                     }),
                 Forms\Components\RichEditor::make('materi')
                     ->columnSpanFull()
+                    ->label('Material')
                     ->required()
                     ->reactive()
                     ->dehydrateStateUsing(fn ($state) => $state),

@@ -10,6 +10,8 @@ class StudentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'students';
 
+    protected static ?string $title = 'Joined Students';
+
     public function table(Table $table): Table
     {
         return $table

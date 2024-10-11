@@ -33,9 +33,6 @@ class ClassroomResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('description')
-                    ->required()
-                    ->maxLength(255),
                 Forms\Components\Select::make('teacher_id')
                     ->relationship('teacher', 'name')
                     ->required()
@@ -47,6 +44,9 @@ class ClassroomResource extends Resource
                         return [$user->id => $user->name];
                     })
                     ->default($user->id),
+                Forms\Components\Textarea::make('description')
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('code_classroom')
                     ->required()
                     ->default(function () {
@@ -73,10 +73,9 @@ class ClassroomResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('teacher.name')
                     ->numeric()
-                    ->sortable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('code_classroom')
-                    ->numeric()
-                    ->sortable(),
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

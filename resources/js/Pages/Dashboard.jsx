@@ -15,8 +15,6 @@ import { useState } from "react";
 export default function Dashboard({ classrooms }) {
     const [code, setCode] = useState("");
 
-    console.log(classrooms);
-
     const handleEnroll = async (e) => {
         e.preventDefault();
 

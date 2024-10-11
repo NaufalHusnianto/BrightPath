@@ -8,8 +8,6 @@ const formatDate = (dateString) => {
 };
 
 export default function Classroom({ classroom_data }) {
-    console.log(classroom_data);
-
     const combinedItems = [
         ...classroom_data.learning_modules.map((module) => ({
             id: module.id,

@@ -26,9 +26,9 @@ class DiscussionsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')->label('Pengguna'),
-                Tables\Columns\TextColumn::make('content')->label('Konten'),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Dibuat Pada'),
+                Tables\Columns\TextColumn::make('user.name')->label('Users'),
+                Tables\Columns\TextColumn::make('content'),
+                Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //

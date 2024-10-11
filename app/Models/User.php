@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasAvatar
 {
     use HasFactory, Notifiable, HasRoles;
 
@@ -58,5 +59,14 @@ class User extends Authenticatable
     public function classroomsAsStudent(): BelongsToMany
     {
         return $this->belongsToMany(Classroom::class, 'classroom_student', 'student_id', 'classroom_id');
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        if ($this->photo_profile === null) {
+            return null;
+        }
+        
+        return '/storage/' . $this->photo_profile;
     }
 }

@@ -4,6 +4,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { useState } from "react";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -11,7 +12,17 @@ export default function Register() {
         email: "",
         password: "",
         password_confirmation: "",
+        photo: null,
+        role: "student",
     });
+
+    const [fileName, setFileName] = useState("");
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setData("photo", file);
+        setFileName(file.name);
+    };
 
     const submit = (e) => {
         e.preventDefault();
@@ -26,7 +37,19 @@ export default function Register() {
             <Head title="Register" />
 
             <form onSubmit={submit}>
-                <div>
+                <div className="p-4">
+                    <InputLabel htmlFor="photo" value="Photo Profile" />
+                    <input
+                        name="photo"
+                        id="photo"
+                        type="file"
+                        onChange={handleFileChange}
+                    />
+                    {fileName && <p>{fileName} selected</p>}
+                    {errors.photo && <div>{errors.photo}</div>}
+                </div>
+
+                <div className="mt-4">
                     <InputLabel htmlFor="name" value="Name" />
 
                     <TextInput
@@ -58,6 +81,24 @@ export default function Register() {
                     />
 
                     <InputError message={errors.email} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="role" value="Role" />
+
+                    <select
+                        id="role"
+                        name="role"
+                        className="mt-1 block w-full bg-background rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-amber-500 sm:text-sm"
+                        value={data.role}
+                        onChange={(e) => setData("role", e.target.value)}
+                        required
+                    >
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                    </select>
+
+                    <InputError message={errors.role} className="mt-2" />
                 </div>
 
                 <div className="mt-4">

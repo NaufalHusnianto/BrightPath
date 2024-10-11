@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\Task;
 use App\Models\User;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskSubmissionTable extends BaseWidget
 {
+    use HasWidgetShield;
+
     protected int | string | array $columnSpan = 'full';
 
     protected static ?string $heading = 'Task Submissions';
@@ -34,11 +37,9 @@ class TaskSubmissionTable extends BaseWidget
             ->columns([
                 Tables\Columns\TextColumn::make('classroom.name')
                     ->label('Classroom')
-                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('Task Title')
-                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('submissions_count')
                     ->label('Total Submissions')

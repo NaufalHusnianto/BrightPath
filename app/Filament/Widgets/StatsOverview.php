@@ -6,12 +6,15 @@ use App\Models\Classroom;
 use App\Models\LearningModule;
 use App\Models\Task;
 use App\Models\User;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Facades\Auth;
 
 class StatsOverview extends BaseWidget
 {
+    use HasWidgetShield;
+
     protected function getStats(): array
     {
         $user = User::find(Auth::user()->id);
@@ -41,7 +44,7 @@ class StatsOverview extends BaseWidget
             ];
         } else {
             return [
-                Stat::make('Pengguna', User::count())
+                Stat::make('Users', User::count())
                     ->description('All Users')
                     ->descriptionIcon('heroicon-o-users')
                     ->descriptionColor('primary'),

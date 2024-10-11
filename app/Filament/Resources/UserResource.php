@@ -35,8 +35,6 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('photo_profile')
-                    ->image(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -51,7 +49,9 @@ class UserResource extends Resource
                 Forms\Components\Select::make('roles')
                     ->relationship('roles', 'name')
                     ->preload()
-                    ->searchable()
+                    ->searchable(),
+                Forms\Components\FileUpload::make('photo_profile')
+                    ->image()
             ]);
     }
 

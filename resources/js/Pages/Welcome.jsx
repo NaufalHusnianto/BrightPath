@@ -76,7 +76,7 @@ export default function Welcome({ auth }) {
                                     variant="flat"
                                     href={route("dashboard")}
                                 >
-                                    Dashboard
+                                    Dashboard Class
                                 </Button>
                             </NavbarItem>
                         ) : (
@@ -134,41 +134,22 @@ export default function Welcome({ auth }) {
                         Efektif.
                     </h1>
                     <div className="py-4 space-x-4">
-                        {!auth.user ? (
-                            <>
-                                <Button
-                                    as={Link}
-                                    href={route("dashboard")}
-                                    color="warning"
-                                    variant="bordered"
-                                >
-                                    Login Sebagai Siswa
-                                </Button>
-                                <Button
-                                    as={Link}
-                                    href={"/admin"}
-                                    color="warning"
-                                    variant="bordered"
-                                >
-                                    Login Sebagai Guru
-                                </Button>
-                            </>
-                        ) : (
-                            <Button
-                                as={Link}
-                                href={
-                                    auth.user && auth.user.role === "guru"
-                                        ? "/admin"
-                                        : "/dashboard"
-                                }
-                                color="warning"
-                                variant="bordered"
-                            >
-                                {auth.user && auth.user.role === "guru"
-                                    ? "Login Sebagai Guru"
-                                    : "Login Sebagai Siswa"}
-                            </Button>
-                        )}
+                        <Button
+                            as={Link}
+                            href={route("dashboard")}
+                            color="warning"
+                            variant="bordered"
+                        >
+                            Login Sebagai Siswa
+                        </Button>
+                        <Button
+                            as={Link}
+                            href={"/admin"}
+                            color="warning"
+                            variant="bordered"
+                        >
+                            Login Sebagai Guru
+                        </Button>
                     </div>
                 </div>
 
