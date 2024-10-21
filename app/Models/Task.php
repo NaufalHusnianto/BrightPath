@@ -11,7 +11,7 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'classroom_id'];
+    protected $fillable = ['title', 'description', 'deadline', 'classroom_id'];
 
     public function classroom(): BelongsTo
     {

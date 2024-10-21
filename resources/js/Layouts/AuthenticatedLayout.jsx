@@ -18,7 +18,7 @@ export default function Authenticated({ header, children }) {
                     <div className="flex h-16 justify-between">
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
-                                <Link href="/">
+                                <Link href="/dashboard">
                                     <h1 className="text-2xl font-bold">
                                         Bright
                                         <span className="text-amber-500">
@@ -33,19 +33,13 @@ export default function Authenticated({ header, children }) {
                                     href={route("dashboard")}
                                     active={route().current("dashboard")}
                                 >
-                                    Dashboard
+                                    MyClassroom
                                 </NavLink>
                                 <NavLink
                                     href={route("dashboard")}
                                     // active={route().current("dashboard")}
                                 >
-                                    Assignments
-                                </NavLink>
-                                <NavLink
-                                    href={route("dashboard")}
-                                    // active={route().current("dashboard")}
-                                >
-                                    Quiz
+                                    MyTask
                                 </NavLink>
                             </div>
                         </div>

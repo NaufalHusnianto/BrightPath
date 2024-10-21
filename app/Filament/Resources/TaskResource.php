@@ -36,6 +36,8 @@ class TaskResource extends Resource
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->columnSpanFull(),
+                Forms\Components\DateTimePicker::make('deadline')
+                    ->required(),
                 Forms\Components\Select::make('classroom_id')
                     ->relationship('classroom', 'name')
                     ->required()
@@ -67,6 +69,7 @@ class TaskResource extends Resource
                 Tables\Columns\TextColumn::make('classroom.name')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('deadline')->dateTime(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -22,6 +22,10 @@ export default function Task({ tasks }) {
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
+    const isLate = (submissionDate, deadline) => {
+        return new Date(submissionDate) > new Date(deadline);
+    };
+
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setData("submission", file);
@@ -41,6 +45,7 @@ export default function Task({ tasks }) {
                 <div>
                     <h1 className="text-5xl font-bold">{tasks.title}</h1>
                     <p>{tasks.description}</p>
+                    <p className="mt-2">Deadline : {tasks.deadline}</p>
 
                     <p className="mt-8">
                         Kelas :{" "}
@@ -60,6 +65,20 @@ export default function Task({ tasks }) {
                             Task has been submitted{" "}
                             {formatDate(tasks.submissions[0].created_at)}.
                         </div>
+
+                        {isLate(
+                            tasks.submissions[0].created_at,
+                            tasks.deadline
+                        ) ? (
+                            <p className="text-red-500 font-bold">
+                                Submission is Late
+                            </p>
+                        ) : (
+                            <p className="text-green-500 font-bold">
+                                Submitted on Time
+                            </p>
+                        )}
+
                         <a
                             href={"/storage/" + tasks.submissions[0].file_path}
                             className="text-blue-500 mt-5"

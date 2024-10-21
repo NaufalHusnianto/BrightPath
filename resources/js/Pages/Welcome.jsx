@@ -80,26 +80,16 @@ export default function Welcome({ auth }) {
                                 </Button>
                             </NavbarItem>
                         ) : (
-                            <>
-                                <NavbarItem className="hidden lg:flex">
-                                    <Link
-                                        href={route("login")}
-                                        color="foreground"
-                                    >
-                                        Login
-                                    </Link>
-                                </NavbarItem>
-                                <NavbarItem>
-                                    <Button
-                                        as={Link}
-                                        color="warning"
-                                        href={route("register")}
-                                        variant="flat"
-                                    >
-                                        Sign Up
-                                    </Button>
-                                </NavbarItem>
-                            </>
+                            <NavbarItem>
+                                <Button
+                                    as={Link}
+                                    color="warning"
+                                    href={route("register")}
+                                    variant="flat"
+                                >
+                                    Sign Up
+                                </Button>
+                            </NavbarItem>
                         )}
                     </NavbarContent>
                     <NavbarMenu>

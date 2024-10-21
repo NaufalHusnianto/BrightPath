@@ -1,11 +1,21 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import { Button, Divider } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Module({ modules, auth }) {
     const [processedContent, setProcessedContent] = useState("");
     const [data, setData] = useState("");
+
+    const scrollRef = useRef(null);
+
+    console.log(modules);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+    }, [modules.discussions]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -93,7 +103,7 @@ export default function Module({ modules, auth }) {
                                 dangerouslySetInnerHTML={{
                                     __html: processedContent,
                                 }}
-                                className="text-xl gap-3 flex flex-col"
+                                className=" gap-3 flex flex-col"
                             />
                         </div>
                     </div>
@@ -104,40 +114,45 @@ export default function Module({ modules, auth }) {
                 <h2 className="text-2xl font-bold">Diskusi</h2>
                 <Divider className="mb-6 mt-2" />
 
-                {modules.discussions.map((discussion) => (
-                    <div
-                        key={discussion.id}
-                        className={`mb-4 flex ${
-                            discussion.user_id === auth.user.id
-                                ? "justify-end"
-                                : "justify-start"
-                        }`}
-                    >
+                <div
+                    className="max-h-96 overflow-y-auto scrollbar-default scroll-smooth"
+                    ref={scrollRef}
+                >
+                    {modules.discussions.map((discussion) => (
                         <div
-                            className={`max-w-xl p-4 rounded-lg shadow ${
+                            key={discussion.id}
+                            className={`mb-4 flex ${
                                 discussion.user_id === auth.user.id
-                                    ? "bg-content2"
-                                    : "bg-content2"
+                                    ? "justify-end"
+                                    : "justify-start"
                             }`}
                         >
-                            <div className="flex items-start space-x-4">
-                                <div
-                                    className={`font-bold ${
-                                        discussion.user_id === auth.user.id
-                                            ? "text-amber-500"
-                                            : "text-foreground"
-                                    }`}
-                                >
-                                    {discussion.user.name}
+                            <div
+                                className={`max-w-xl p-4 rounded-lg shadow ${
+                                    discussion.user_id === auth.user.id
+                                        ? "bg-content2"
+                                        : "bg-content2"
+                                }`}
+                            >
+                                <div className="flex items-start space-x-4">
+                                    <div
+                                        className={`font-bold ${
+                                            discussion.user_id === auth.user.id
+                                                ? "text-amber-500"
+                                                : "text-foreground"
+                                        }`}
+                                    >
+                                        {discussion.user.name}
+                                    </div>
+                                    <div className="text-sm text-gray-500">
+                                        {formatDate(discussion.created_at)}
+                                    </div>
                                 </div>
-                                <div className="text-sm text-gray-500">
-                                    {formatDate(discussion.created_at)}
-                                </div>
+                                <div className="mt-2">{discussion.content}</div>
                             </div>
-                            <div className="mt-2">{discussion.content}</div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
 
                 <form onSubmit={handleSubmit} className="mt-16">
                     <textarea

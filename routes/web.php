@@ -6,6 +6,7 @@ use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\LearningModuleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
+use Filament\Support\Facades\FilamentView;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;

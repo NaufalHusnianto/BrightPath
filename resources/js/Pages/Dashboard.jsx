@@ -76,7 +76,7 @@ export default function Dashboard({ classrooms }) {
                                         isBordered
                                         radius="full"
                                         size="md"
-                                        src={classroom.teacher.profile_photo}
+                                        src={`http://brightpath.test/storage/${classroom.teacher.photo_profile}`}
                                     />
                                     <div className="flex flex-col gap-1 items-start justify-center">
                                         <h4 className="text-xl font-semibold leading-none text-amber-500">
