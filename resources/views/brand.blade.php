@@ -1,1 +1,1 @@
-<h1 class="text-2xl font-extrabold">Bright<span style="color: rgb(255, 187, 0)">Path</span></h1>
+<a href="/" class="text-2xl font-extrabold">Bright<span style="color: rgb(255, 187, 0)">Path</span></a>

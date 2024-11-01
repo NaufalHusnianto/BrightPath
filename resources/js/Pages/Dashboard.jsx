@@ -1,3 +1,4 @@
+import Footer from "@/Components/Footer";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
@@ -14,18 +15,47 @@ import { useState } from "react";
 
 export default function Dashboard({ classrooms }) {
     const [code, setCode] = useState("");
+    const [showModal, setShowModal] = useState(false);
+    const [showLeaveModal, setShowLeaveModal] = useState(false); // State untuk menampilkan modal konfirmasi keluar kelas
+    const [selectedClassroom, setSelectedClassroom] = useState(null); // Menyimpan kelas yang akan ditinggalkan
 
     const handleEnroll = async (e) => {
         e.preventDefault();
 
         try {
-            await router.post("/enroll-classroom", { code });
+            await router.post(
+                "/enroll-classroom",
+                { code },
+                {
+                    onError: () => setShowModal(true),
+                }
+            );
 
             setCode("");
         } catch (error) {
             alert(error);
         }
     };
+
+    const handleLeaveClass = async () => {
+        if (selectedClassroom) {
+            try {
+                await router.post(`/leave-classroom/${selectedClassroom.id}`);
+                setShowLeaveModal(false);
+                setSelectedClassroom(null);
+            } catch (error) {
+                alert("Error saat meninggalkan kelas");
+            }
+        }
+    };
+
+    const openLeaveModal = (classroom) => {
+        setSelectedClassroom(classroom);
+        setShowLeaveModal(true);
+    };
+
+    const closeModal = () => setShowModal(false);
+    const closeLeaveModal = () => setShowLeaveModal(false);
 
     return (
         <AuthenticatedLayout>
@@ -92,28 +122,78 @@ export default function Dashboard({ classrooms }) {
                                 {classroom.description}
                             </CardBody>
                             <Divider />
-                            <CardFooter className="gap-3">
-                                <div className="flex gap-1">
+                            <CardFooter className="flex gap-3 justify-between">
+                                <div className="flex gap-3">
                                     <p className="font-semibold text-default-400 text-small">
-                                        {classroom.learning_modules.length}
-                                    </p>
-                                    <p className=" text-default-400 text-small">
+                                        {classroom.learning_modules.length}{" "}
                                         Modul
                                     </p>
-                                </div>
-                                <div className="flex gap-1">
                                     <p className="font-semibold text-default-400 text-small">
-                                        {classroom.tasks.length}
-                                    </p>
-                                    <p className="text-default-400 text-small">
-                                        Tugas
+                                        {classroom.tasks.length} Tugas
                                     </p>
                                 </div>
+                                <Button
+                                    size="sm"
+                                    color="error"
+                                    onClick={() => openLeaveModal(classroom)}
+                                >
+                                    Keluar
+                                </Button>
                             </CardFooter>
                         </Card>
                     ))}
                 </div>
+
+                {/* Modal Kode Salah */}
+                {showModal && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+                            <h3 className="text-lg font-bold mb-4">
+                                Kode Salah
+                            </h3>
+                            <p className="mb-4">
+                                Kode kelas yang Anda masukkan tidak valid.
+                            </p>
+                            <button
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                onClick={closeModal}
+                            >
+                                Tutup
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {/* Modal Konfirmasi Keluar Kelas */}
+                {showLeaveModal && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                        <div className="bg-content1 p-6 rounded-lg shadow-lg max-w-sm w-full">
+                            <h3 className="text-lg font-bold mb-4">
+                                Konfirmasi
+                            </h3>
+                            <p className="mb-4">
+                                Apakah Anda yakin ingin keluar dari kelas "
+                                {selectedClassroom?.name}"?
+                            </p>
+                            <div className="flex justify-end gap-2">
+                                <button
+                                    className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded"
+                                    onClick={closeLeaveModal}
+                                >
+                                    Batal
+                                </button>
+                                <button
+                                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                    onClick={handleLeaveClass}
+                                >
+                                    Keluar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
+            <Footer />
         </AuthenticatedLayout>
     );
 }

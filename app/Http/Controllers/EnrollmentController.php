@@ -21,4 +21,13 @@ class EnrollmentController extends Controller
 
         return redirect()->back()->with('success', 'Anda telah berhasil mendaftar ke kelas: ' . $classroom->name);
     }
+
+    public function leave($classroomId): RedirectResponse
+    {
+        $classroom = Classroom::findOrFail($classroomId);
+
+        $classroom->students()->detach(Auth::id());
+
+        return redirect()->back()->with('success', 'Anda telah keluar dari kelas: ' . $classroom->name);
+    }
 }

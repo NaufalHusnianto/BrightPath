@@ -89,7 +89,7 @@ export default function Register() {
                     <select
                         id="role"
                         name="role"
-                        className="mt-1 block w-full bg-background rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-amber-500 sm:text-sm"
+                        className="mt-1 block w-full bg-content1 rounded-md shadow-sm py-2 px-3 border-none focus:ring-amber-500 sm:text-sm"
                         value={data.role}
                         onChange={(e) => setData("role", e.target.value)}
                         required

@@ -11,6 +11,22 @@ use Inertia\Response;
 
 class TaskController extends Controller
 {
+    public function index(): Response
+    {
+        $user = Auth::user();
+
+        $tasks = Task::with(['submissions', 'classroom'])
+            ->whereHas('classroom.students', function ($query) use ($user) {
+                $query->where('student_id', $user->id);
+            })
+            ->get();
+
+        return Inertia::render('Tasks', [
+            'tasks' => $tasks,
+        ]);
+
+    }
+
     public function show(Task $task): Response
     {
         $task->load(['classroom', 'submissions']);

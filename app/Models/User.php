@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Filament\Models\Contracts\HasAvatar;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements HasAvatar, MustVerifyEmail
+class User extends Authenticatable implements HasAvatar, MustVerifyEmail, FilamentUser
 {
     use HasFactory, Notifiable, HasRoles;
 
@@ -49,6 +50,12 @@ class User extends Authenticatable implements HasAvatar, MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        // Membatasi akses hanya untuk role "teacher" atau "super_admin"
+        return $this->hasRole('teacher') || $this->hasRole('super_admin');
     }
 
     public function classroomsAsTeacher(): HasMany

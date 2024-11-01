@@ -14,7 +14,7 @@ export default function Authenticated({ header, children }) {
     return (
         <div className="min-h-screen">
             <nav className="border-b border-default">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
@@ -36,8 +36,8 @@ export default function Authenticated({ header, children }) {
                                     MyClassroom
                                 </NavLink>
                                 <NavLink
-                                    href={route("dashboard")}
-                                    // active={route().current("dashboard")}
+                                    href={route("tasks")}
+                                    active={route().current("tasks")}
                                 >
                                     MyTask
                                 </NavLink>
