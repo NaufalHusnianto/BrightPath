@@ -41,14 +41,14 @@ class TaskSubmissionTable extends BaseWidget
                 Tables\Columns\TextColumn::make('title')
                     ->label('Task Title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('submissions_count')
-                    ->label('Total Submissions')
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('classroom.students_count')
                     ->label('Total Students')
                     ->getStateUsing(function (Task $record) {
                         return $record->classroom->students()->count();
                     })
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('submissions_count')
+                    ->label('Total Student Submited')
                     ->sortable(),
             ]);
     }

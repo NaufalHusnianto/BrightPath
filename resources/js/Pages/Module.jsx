@@ -1,3 +1,4 @@
+import Footer from "@/Components/Footer";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import { Button, Divider } from "@nextui-org/react";
@@ -58,9 +59,9 @@ export default function Module({ modules, auth }) {
                 img.style.setProperty("margin", "auto");
             });
 
-            doc.querySelectorAll("figcaption").forEach((caption) => {
-                caption.style.setProperty("visibility", "hidden");
-            });
+            // doc.querySelectorAll("figcaption").forEach((caption) => {
+            //     caption.style.setProperty("visibility", "hidden");
+            // });
 
             setProcessedContent(doc.body.innerHTML);
         }
@@ -172,6 +173,7 @@ export default function Module({ modules, auth }) {
                     </Button>
                 </form>
             </div>
+            <Footer />
         </Authenticated>
     );
 }

@@ -55,10 +55,18 @@ export default function Authenticated({ header, children }) {
                                             >
                                                 {user.name}
 
-                                                <Avatar
-                                                    src={`http://brightpath.test/storage/${user.photo_profile}`}
-                                                    isBordered
-                                                />
+                                                {user.photo_profile ? (
+                                                    <Avatar
+                                                        src={`http://192.168.43.49:8000/storage/${user.photo_profile}`}
+                                                        isBordered
+                                                    />
+                                                ) : (
+                                                    <Avatar
+                                                        name={user.name}
+                                                        isBordered
+                                                        className="text-amber-500"
+                                                    />
+                                                )}
                                             </button>
                                         </span>
                                     </Dropdown.Trigger>
@@ -88,7 +96,7 @@ export default function Authenticated({ header, children }) {
                                         (previousState) => !previousState
                                     )
                                 }
-                                className="inline-flex items-center justify-center rounded-md p-2 transition duration-150 ease-in-out hover:bg-amber-500 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
+                                className="inline-flex items-center justify-center rounded-md p-2 transition duration-150 ease-in-out hover:bg-amber-500 hover:text-background focus:bg-amber-500 focus:text-background focus:outline-none"
                             >
                                 <svg
                                     className="h-6 w-6"
@@ -135,22 +143,31 @@ export default function Authenticated({ header, children }) {
                             href={route("dashboard")}
                             active={route().current("dashboard")}
                         >
-                            Dashboard
+                            My Classrooms
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("tasks")}
+                            active={route().current("tasks")}
+                        >
+                            My Tasks
                         </ResponsiveNavLink>
                     </div>
 
-                    <div className="border-t border-gray-200 pb-1 pt-4">
+                    <div className="border-t border-b border-foreground-300 pb-1 pt-4">
                         <div className="px-4">
-                            <div className="text-base font-medium text-gray-800">
+                            <div className="text-base font-medium text-foreground-800">
                                 {user.name}
                             </div>
-                            <div className="text-sm font-medium text-gray-500">
+                            <div className="text-sm font-medium text-amber-500">
                                 {user.email}
                             </div>
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route("profile.edit")}>
+                            <ResponsiveNavLink
+                                href={route("profile.edit")}
+                                active={route().current("profile.edit")}
+                            >
                                 Profile
                             </ResponsiveNavLink>
                             <ResponsiveNavLink

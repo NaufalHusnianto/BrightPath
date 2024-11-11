@@ -4,6 +4,8 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Transition } from "@headlessui/react";
 import { Link, useForm, usePage } from "@inertiajs/react";
+import { Avatar, Button } from "@nextui-org/react";
+import { useState } from "react";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -12,16 +14,33 @@ export default function UpdateProfileInformation({
 }) {
     const user = usePage().props.auth.user;
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } =
+    const { data, setData, post, errors, processing, recentlySuccessful } =
         useForm({
             name: user.name,
             email: user.email,
+            photo: null,
         });
+
+    const [fileName, setFileName] = useState("");
+    const [preview, setPreview] = useState(null);
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setData("photo", file);
+        setFileName(file.name);
+
+        if (file) {
+            const objectUrl = URL.createObjectURL(file);
+            setPreview(objectUrl);
+        }
+    };
 
     const submit = (e) => {
         e.preventDefault();
 
-        patch(route("profile.update"));
+        console.log(data);
+
+        post(route("profile.update"));
     };
 
     return (
@@ -67,6 +86,46 @@ export default function UpdateProfileInformation({
                     />
 
                     <InputError className="mt-2" message={errors.email} />
+                </div>
+
+                <div className="p-4 flex flex-col items-center justify-center">
+                    <InputLabel htmlFor="photo" value="Photo Profile" />
+
+                    <div className="my-4">
+                        {preview ? (
+                            <img
+                                src={preview}
+                                alt="Preview"
+                                className="h-32 w-32 object-cover rounded-full"
+                            />
+                        ) : (
+                            <Avatar
+                                isBordered
+                                name={data.name}
+                                size="lg"
+                                className="text-amber-500 text-xl w-24 h-24"
+                            />
+                        )}
+                    </div>
+
+                    <div className="flex items-center">
+                        <input
+                            name="photo"
+                            id="photo"
+                            type="file"
+                            className="hidden"
+                            onChange={handleFileChange}
+                        />
+                        <Button
+                            onClick={() =>
+                                document.getElementById("photo").click()
+                            }
+                        >
+                            Upload Photo
+                        </Button>
+                    </div>
+                    {fileName && <p>{fileName} selected</p>}
+                    {errors.photo && <div>{errors.photo}</div>}
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (

@@ -39,7 +39,7 @@ class TaskController extends Controller
     public function store(Request $request, $taskId)
     {
         $request->validate([
-            'submission' => 'required|file|mimes:pdf,doc,docx,jpg,png|max:2048',
+            'submission' => 'required|file|mimes:pdf,doc,docx,jpg,png',
         ]);
 
         $path = $request->file('submission')->store('submissions', 'public');

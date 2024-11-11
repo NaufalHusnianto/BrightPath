@@ -44,7 +44,7 @@ class StatsOverview extends BaseWidget
             ];
         } else {
             return [
-                Stat::make('Users', User::count())
+                Stat::make('Users', User::count() - 1)
                     ->description('All Users')
                     ->descriptionIcon('heroicon-o-users')
                     ->descriptionColor('primary'),

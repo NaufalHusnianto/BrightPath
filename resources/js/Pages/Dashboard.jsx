@@ -61,8 +61,8 @@ export default function Dashboard({ classrooms }) {
         <AuthenticatedLayout>
             <Head title="Dashboard" />
 
-            <div className="mx-auto w-full px-8 py-6">
-                <div className="flex justify-between items-center mb-6">
+            <div className="mx-auto w-full px-8 py-6 flex flex-col min-h-screen">
+                <div className="flex flex-col lg:flex-row gap-2 justify-between items-center mb-6">
                     <h1 className="text-2xl font-bold">My Classroom</h1>
                     <form
                         onSubmit={handleEnroll}
@@ -106,7 +106,7 @@ export default function Dashboard({ classrooms }) {
                                         isBordered
                                         radius="full"
                                         size="md"
-                                        src={`http://brightpath.test/storage/${classroom.teacher.photo_profile}`}
+                                        src={`http://192.168.43.49:8000/storage/${classroom.teacher.photo_profile}`}
                                     />
                                     <div className="flex flex-col gap-1 items-start justify-center">
                                         <h4 className="text-xl font-semibold leading-none text-amber-500">

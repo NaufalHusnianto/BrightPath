@@ -14,32 +14,13 @@ import {
 } from "@nextui-org/react";
 
 export default function Welcome({ auth }) {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const menuItems = [
-        "Profile",
-        "Dashboard",
-        "Activity",
-        "Analytics",
-        "System",
-        "Deployments",
-        "My Settings",
-        "Team Settings",
-        "Help & Feedback",
-        "Log Out",
-    ];
-
     return (
         <>
             <Head title="Welcome" />
 
             <main className="min-h-screen w-full">
-                <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl">
+                <Navbar maxWidth="xl">
                     <NavbarContent>
-                        <NavbarMenuToggle
-                            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                            className="sm:hidden"
-                        />
                         <NavbarBrand>
                             <p className="font-extrabold text-xl text-inherit">
                                 Bright
@@ -81,7 +62,7 @@ export default function Welcome({ auth }) {
                                 </Button>
                             </NavbarItem>
                         ) : (
-                            <>
+                            <div className="flex gap-2">
                                 <NavbarItem>
                                     <Button
                                         as={Link}
@@ -102,29 +83,9 @@ export default function Welcome({ auth }) {
                                         Sign Up
                                     </Button>
                                 </NavbarItem>
-                            </>
+                            </div>
                         )}
                     </NavbarContent>
-                    <NavbarMenu>
-                        {menuItems.map((item, index) => (
-                            <NavbarMenuItem key={`${item}-${index}`}>
-                                <Link
-                                    color={
-                                        index === 2
-                                            ? "primary"
-                                            : index === menuItems.length - 1
-                                            ? "danger"
-                                            : "foreground"
-                                    }
-                                    className="w-full"
-                                    href="#"
-                                    size="lg"
-                                >
-                                    {item}
-                                </Link>
-                            </NavbarMenuItem>
-                        ))}
-                    </NavbarMenu>
                 </Navbar>
 
                 <div className="max-w-7xl text-center py-32 px-2 mx-auto">
@@ -136,7 +97,7 @@ export default function Welcome({ auth }) {
                         Platform Pembelajaran Yang Membantu Belajar Lebih
                         Efektif.
                     </h1>
-                    <div className="py-4 space-x-1 lg:space-x-4">
+                    <div className="py-4 space-x-1 lg:space-x-4 space-y-2">
                         {!auth.user ? (
                             <>
                                 <Button

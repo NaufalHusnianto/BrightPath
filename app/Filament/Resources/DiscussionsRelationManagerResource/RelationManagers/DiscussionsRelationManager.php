@@ -28,13 +28,17 @@ class DiscussionsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')->label('Users'),
                 Tables\Columns\TextColumn::make('content'),
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Sent At'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->modalHeading('Send Message')
+                    ->modalSubmitActionLabel('Send')
+                    ->createAnother(false)
+                    ->label('Send Message'),
             ])
             ->actions([
                 Tables\Actions\DeleteAction::make(),
