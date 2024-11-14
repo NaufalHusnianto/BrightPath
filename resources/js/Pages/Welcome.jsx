@@ -1,13 +1,10 @@
+import ButtonDarkMode from "@/Components/ButtonDarkMode";
 import { Head } from "@inertiajs/react";
-import { useState } from "react";
 import {
     Navbar,
     NavbarBrand,
     NavbarContent,
     NavbarItem,
-    NavbarMenuToggle,
-    NavbarMenu,
-    NavbarMenuItem,
     Link,
     Button,
     Divider,
@@ -50,6 +47,7 @@ export default function Welcome({ auth }) {
                         </NavbarItem>
                     </NavbarContent>
                     <NavbarContent justify="end">
+                        <ButtonDarkMode />
                         {auth.user ? (
                             <NavbarItem>
                                 <Button
@@ -241,13 +239,13 @@ export default function Welcome({ auth }) {
                 </div>
 
                 {/* Footer Section */}
-                <footer className="bg-gray-900 text-gray-200 py-12">
+                <footer className="bg-content3 text-content3-foreground py-12">
                     <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div>
                             <h3 className="text-xl font-bold mb-4">
                                 Tentang BrightPath
                             </h3>
-                            <p className="text-gray-400">
+                            <p className="text-content3-foreground">
                                 BrightPath adalah platform pembelajaran terpadu
                                 yang memberikan kemudahan bagi guru dan siswa
                                 dalam mengelola proses belajar secara efektif,
@@ -256,7 +254,7 @@ export default function Welcome({ auth }) {
                         </div>
                         <div>
                             <h3 className="text-xl font-bold mb-4">Navigasi</h3>
-                            <ul className="space-y-2 text-gray-400">
+                            <ul className="space-y-2 text-content3-foreground">
                                 <li>
                                     <Link href="#" color="foreground">
                                         Tentang Kami
@@ -283,30 +281,30 @@ export default function Welcome({ auth }) {
                             <h3 className="text-xl font-bold mb-4">
                                 Hubungi Kami
                             </h3>
-                            <p className="text-gray-400">
+                            <p className="text-content3-foreground">
                                 Email: support@brightpath.com
                             </p>
-                            <p className="text-gray-400">
+                            <p className="text-content3-foreground">
                                 Telepon: 123-456-7890
                             </p>
                             <div className="mt-4 flex space-x-4">
                                 <Link href="#">
-                                    <i className="fab fa-facebook fa-lg text-gray-400 hover:text-amber-500"></i>
+                                    <i className="fab fa-facebook fa-lg text-content3-foreground hover:text-amber-500"></i>
                                 </Link>
                                 <Link href="#">
-                                    <i className="fab fa-twitter fa-lg text-gray-400 hover:text-amber-500"></i>
+                                    <i className="fab fa-twitter fa-lg text-content3-foreground hover:text-amber-500"></i>
                                 </Link>
                                 <Link href="#">
-                                    <i className="fab fa-instagram fa-lg text-gray-400 hover:text-amber-500"></i>
+                                    <i className="fab fa-instagram fa-lg text-content3-foreground hover:text-amber-500"></i>
                                 </Link>
                                 <Link href="#">
-                                    <i className="fab fa-linkedin fa-lg text-gray-400 hover:text-amber-500"></i>
+                                    <i className="fab fa-linkedin fa-lg text-content3-foreground hover:text-amber-500"></i>
                                 </Link>
                             </div>
                         </div>
                     </div>
                     <Divider className="my-8" />
-                    <p className="text-center text-gray-500">
+                    <p className="text-center text-content3-foreground">
                         © 2024 BrightPath. All rights reserved.
                     </p>
                 </footer>

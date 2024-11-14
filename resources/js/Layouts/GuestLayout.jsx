@@ -1,8 +1,10 @@
+import ButtonDarkMode from "@/Components/ButtonDarkMode";
 import { Link } from "@inertiajs/react";
 
 export default function Guest({ children }) {
     return (
         <div className="flex min-h-screen flex-col items-center py-24 justify-center">
+            <ButtonDarkMode className="absolute top-4 right-4" />
             <div>
                 <Link href="/">
                     <h1 className="text-4xl font-bold">

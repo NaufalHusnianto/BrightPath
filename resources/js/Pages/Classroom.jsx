@@ -54,7 +54,7 @@ export default function Classroom({ classroom_data }) {
         <Authenticated>
             <Head title="Classroom" />
 
-            <div className="w-full p-16 bg-content1 flex justify-between items-center">
+            <div className="w-full p-16 bg-content1 flex justify-between items-center border-b border-foreground-200">
                 <div>
                     <h1 className="text-5xl font-bold">
                         {classroom_data.name}

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\GeminiController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\LearningModuleController;
 use App\Http\Controllers\ProfileController;
@@ -30,7 +31,7 @@ Route::post('/enroll-classroom', action: [EnrollmentController::class, 'enroll']
 Route::post('/leave-classroom/{classroomId}', [EnrollmentController::class, 'leave'])
     ->middleware('auth')
     ->name('leave-classroom');
-
+    
 Route::get('/learning-module/{module}', [LearningModuleController::class, 'show'])->middleware(['auth', 'verified'])->name('learning-modules.show');
 Route::post('/discuss/{module}', [LearningModuleController::class, 'discuss'])->middleware(['auth', 'verified'])->name('discuss');
 
@@ -39,11 +40,12 @@ Route::post('/tasks/{taskId}/submissions', [TaskController::class, 'store'])->na
 
 Route::post('/upload-image', [ImageUploadController::class, 'upload'])->name('upload.image');
 
+Route::get('/chatbot', [GeminiController::class, 'index'])->middleware(['auth', 'verified'])->name('brighty');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 require __DIR__.'/auth.php';

@@ -4,9 +4,12 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link, usePage } from "@inertiajs/react";
 import { Avatar } from "@nextui-org/react";
 import { useState } from "react";
+import { useDarkMode } from "./DarkModeProvider";
+import ButtonDarkMode from "@/Components/ButtonDarkMode";
 
 export default function Authenticated({ header, children }) {
     const user = usePage().props.auth.user;
+    const { isDarkMode, toggleDarkMode } = useDarkMode();
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -41,10 +44,17 @@ export default function Authenticated({ header, children }) {
                                 >
                                     MyTask
                                 </NavLink>
+                                <NavLink
+                                    href={route("brighty")}
+                                    active={route().current("brighty")}
+                                >
+                                    Ask Brighty
+                                </NavLink>
                             </div>
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
+                            <ButtonDarkMode />
                             <div className="relative ms-3">
                                 <Dropdown>
                                     <Dropdown.Trigger>
@@ -90,6 +100,7 @@ export default function Authenticated({ header, children }) {
                         </div>
 
                         <div className="-me-2 flex items-center sm:hidden">
+                            <ButtonDarkMode />
                             <button
                                 onClick={() =>
                                     setShowingNavigationDropdown(

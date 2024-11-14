@@ -82,7 +82,7 @@ export default function Module({ modules, auth }) {
         <Authenticated>
             <Head title="Module" />
 
-            <div className="w-full p-16 bg-content1 flex justify-between items-center">
+            <div className="w-full p-16 bg-content1 flex justify-between items-center border-b border-foreground-200">
                 <div>
                     <h1 className="text-5xl font-bold">{modules.title}</h1>
                     <p>{modules.description}</p>

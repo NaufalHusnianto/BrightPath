@@ -69,7 +69,7 @@ export default function Task({ tasks }) {
         <Authenticated>
             <Head title="Task" />
 
-            <div className="w-full p-16 bg-content1 flex justify-between items-center">
+            <div className="w-full p-16 bg-content1 flex justify-between items-center border-b border-foreground-200">
                 <div>
                     <h1 className="text-5xl font-bold">{tasks.title}</h1>
                     <p className="mt-2">Deadline : {tasks.deadline}</p>
@@ -124,7 +124,7 @@ export default function Task({ tasks }) {
                         >
                             Open File Submission
                         </a>
-                        <div className="bg-background p-5 rounded-lg mt-8 mb-4">
+                        <div className="bg-content2 p-5 rounded-lg mt-8 mb-4">
                             <h2 className="text-3xl font-bold">
                                 Score :{" "}
                                 <span className="text-amber-500">
