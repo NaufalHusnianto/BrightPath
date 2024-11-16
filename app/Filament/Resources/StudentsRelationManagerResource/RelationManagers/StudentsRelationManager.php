@@ -29,7 +29,8 @@ class StudentsRelationManager extends RelationManager
                 Tables\Actions\DeleteAction::make()
                     ->action(function ($record) {
                         $this->ownerRecord->students()->detach($record->id);
-                    }),
+                    })
+                    ->label('Kick Out'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

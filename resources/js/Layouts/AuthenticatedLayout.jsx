@@ -4,12 +4,10 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link, usePage } from "@inertiajs/react";
 import { Avatar } from "@nextui-org/react";
 import { useState } from "react";
-import { useDarkMode } from "./DarkModeProvider";
 import ButtonDarkMode from "@/Components/ButtonDarkMode";
 
 export default function Authenticated({ header, children }) {
     const user = usePage().props.auth.user;
-    const { isDarkMode, toggleDarkMode } = useDarkMode();
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
