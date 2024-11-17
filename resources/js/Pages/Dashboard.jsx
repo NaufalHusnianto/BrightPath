@@ -16,8 +16,8 @@ import { useState } from "react";
 export default function Dashboard({ classrooms }) {
     const [code, setCode] = useState("");
     const [showModal, setShowModal] = useState(false);
-    const [showLeaveModal, setShowLeaveModal] = useState(false); // State untuk menampilkan modal konfirmasi keluar kelas
-    const [selectedClassroom, setSelectedClassroom] = useState(null); // Menyimpan kelas yang akan ditinggalkan
+    const [showLeaveModal, setShowLeaveModal] = useState(false);
+    const [selectedClassroom, setSelectedClassroom] = useState(null);
 
     const handleEnroll = async (e) => {
         e.preventDefault();
@@ -72,7 +72,7 @@ export default function Dashboard({ classrooms }) {
                             type="text"
                             value={code}
                             onChange={(e) => setCode(e.target.value)}
-                            placeholder="Masukkan kode kelas"
+                            placeholder="Input classroom code"
                             required
                         />
                         <Button

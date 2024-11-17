@@ -9,7 +9,7 @@ const Tasks = ({ tasks }) => {
         >
             <Head title="Tasks" />
 
-            <div className="mx-auto p-6 px-6 flex flex-col min-h-screen">
+            <div className="mx-auto p-6 px-16 flex flex-col min-h-screen">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
                         <h2 className="text-xl font-semibold mb-3">
@@ -21,7 +21,7 @@ const Tasks = ({ tasks }) => {
                                 <Link
                                     href={`/task/${task.id}`}
                                     key={task.id}
-                                    className="block p-4 border rounded-lg hover:bg-content1"
+                                    className="block p-4 border border-foreground-200 rounded-lg hover:bg-content1"
                                 >
                                     <h3 className="font-bold text-lg">
                                         {task.title}
@@ -52,7 +52,7 @@ const Tasks = ({ tasks }) => {
                                 <Link
                                     href={`/task/${task.id}`}
                                     key={task.id}
-                                    className="block p-4 border rounded-lg hover:bg-content1"
+                                    className="block p-4 border border-foreground-200 rounded-lg hover:bg-content1"
                                 >
                                     <h3 className="font-bold text-lg">
                                         {task.title}

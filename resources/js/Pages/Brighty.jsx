@@ -8,6 +8,7 @@ import { Button } from "@nextui-org/react";
 import { useState } from "react";
 
 export default function Brighty(geminiAIKey) {
+    console.log(geminiAIKey.geminiAIKey);
     const [userInput, setUserInput] = useState("");
     const [chatHistory, setChatHistory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);

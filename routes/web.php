@@ -6,6 +6,7 @@ use App\Http\Controllers\GeminiController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\LearningModuleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,12 @@ Route::post('/tasks/{taskId}/submissions', [TaskController::class, 'store'])->na
 Route::post('/upload-image', [ImageUploadController::class, 'upload'])->name('upload.image');
 
 Route::get('/chatbot', [GeminiController::class, 'index'])->middleware(['auth', 'verified'])->name('brighty');
+
+// Quizz
+Route::get('/quiz', [QuizController::class, 'index'])->middleware(['auth', 'verified'])->name('quiz');
+Route::post('/quiz/enroll', [QuizController::class, 'enroll'])->name('quiz.enroll');
+Route::post('/quiz/submit', [QuizController::class, 'submit'])->name('quiz.submit');
+Route::get('/quiz/history', [QuizController::class, 'history'])->middleware(['auth', 'verified'])->name('quiz.history');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

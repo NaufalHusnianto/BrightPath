@@ -68,7 +68,7 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
             ])
-            ->brandLogo(fn () => view('brand'));
-            // ->darkMode(true, true);
+            ->brandLogo(fn () => view('brand'))
+            ->darkMode();
     }
 }

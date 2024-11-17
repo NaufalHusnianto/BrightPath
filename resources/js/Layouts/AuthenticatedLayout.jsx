@@ -43,6 +43,12 @@ export default function Authenticated({ header, children }) {
                                     MyTask
                                 </NavLink>
                                 <NavLink
+                                    href={route("quiz")}
+                                    active={route().current("quiz", "quiz.*")}
+                                >
+                                    BrightQuiz
+                                </NavLink>
+                                <NavLink
                                     href={route("brighty")}
                                     active={route().current("brighty")}
                                 >

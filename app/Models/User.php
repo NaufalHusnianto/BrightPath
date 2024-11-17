@@ -68,6 +68,11 @@ class User extends Authenticatable implements HasAvatar, MustVerifyEmail, Filame
         return $this->belongsToMany(Classroom::class, 'classroom_student', 'student_id', 'classroom_id');
     }
 
+    public function quizzesAsTeacher(): HasMany
+    {
+        return $this->hasMany(Quiz::class, 'teacher_id');
+    }
+
     public function getFilamentAvatarUrl(): ?string
     {
         if ($this->photo_profile === null) {
