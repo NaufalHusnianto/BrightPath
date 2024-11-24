@@ -31,9 +31,11 @@ class ClassroomResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nama Kelas')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('teacher_id')
+                    ->label('Guru/Pengajar')
                     ->relationship('teacher', 'name')
                     ->required()
                     ->options(function () use ($user) {
@@ -45,9 +47,11 @@ class ClassroomResource extends Resource
                     })
                     ->default($user->id),
                 Forms\Components\Textarea::make('description')
+                    ->label('Deskripsi')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('code_classroom')
+                    ->label('Kode Kelas')
                     ->required()
                     ->default(function () {
                         return Str::random(6);
@@ -67,20 +71,23 @@ class ClassroomResource extends Resource
             )
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Classroom Name')
+                    ->label('Nama Kelas')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
+                    ->label('Deskripsi')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('teacher.name')
-                    ->numeric()
+                    ->label('Guru/Pengajar')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('code_classroom')
-                    ->numeric(),
+                    ->label('Kode Kelas'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Diubah pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

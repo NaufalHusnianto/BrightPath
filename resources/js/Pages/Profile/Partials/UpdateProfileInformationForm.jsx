@@ -47,17 +47,15 @@ export default function UpdateProfileInformation({
         <section className={className}>
             <header>
                 <h2 className="text-lg font-medium text-amber-500">
-                    Profile Information
+                    Informasi Pribadi
                 </h2>
 
-                <p className="mt-1 text-sm">
-                    Update your account's profile information and email address.
-                </p>
+                <p className="mt-1 text-sm">Perbarui informasi pribadi anda.</p>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value="Nama Lengkap" />
 
                     <TextInput
                         id="name"
@@ -89,7 +87,7 @@ export default function UpdateProfileInformation({
                 </div>
 
                 <div className="p-4 flex flex-col items-center justify-center">
-                    <InputLabel htmlFor="photo" value="Photo Profile" />
+                    <InputLabel htmlFor="photo" value="Foto Profil" />
 
                     <div className="my-4">
                         {preview ? (
@@ -121,7 +119,7 @@ export default function UpdateProfileInformation({
                                 document.getElementById("photo").click()
                             }
                         >
-                            Upload Photo
+                            Upload Foto
                         </Button>
                     </div>
                     {fileName && <p>{fileName} selected</p>}
@@ -156,7 +154,7 @@ export default function UpdateProfileInformation({
                         disabled={processing}
                         className="bg-amber-500"
                     >
-                        Save
+                        Simpan
                     </PrimaryButton>
 
                     <Transition
@@ -166,7 +164,7 @@ export default function UpdateProfileInformation({
                         leave="transition ease-in-out"
                         leaveTo="opacity-0"
                     >
-                        <p className="text-sm text-gray-600">Saved.</p>
+                        <p className="text-sm text-gray-600">Tersimpan</p>
                     </Transition>
                 </div>
             </form>

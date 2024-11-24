@@ -31,14 +31,18 @@ class TaskResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
+                    ->label('Judul')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\RichEditor::make('description')
+                    ->label('Deskripsi')
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\DateTimePicker::make('deadline')
+                    ->label('Deadline')
                     ->required(),
                 Forms\Components\Select::make('classroom_id')
+                    ->label('Kelas')
                     ->relationship('classroom', 'name')
                     ->required()
                     ->options(function () use ($user) {
@@ -65,19 +69,21 @@ class TaskResource extends Resource
             )
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->label('Judul')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('classroom.name')
                     ->searchable()
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Kelas'),
                 Tables\Columns\TextColumn::make('deadline')
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Diperbarui pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -24,7 +24,7 @@ const truncateText = (htmlText, maxLength) => {
         : cleanText;
 };
 
-export default function Classroom({ classroom_data }) {
+export default function Classroom({ classroom_data, appUrl }) {
     const combinedItems = [
         ...classroom_data.learning_modules.map((module) => ({
             id: module.id,
@@ -51,7 +51,7 @@ export default function Classroom({ classroom_data }) {
     };
 
     return (
-        <Authenticated>
+        <Authenticated appUrl={appUrl}>
             <Head title="Classroom" />
 
             <div className="w-full p-16 bg-content1 flex justify-between items-center border-b border-foreground-200">
@@ -69,7 +69,7 @@ export default function Classroom({ classroom_data }) {
                     </p>
                 </div>
                 <Avatar
-                    src={`http://192.168.43.49:8000/storage/${classroom_data.teacher.photo_profile}`}
+                    src={`${appUrl}/storage/${classroom_data.teacher.photo_profile}`}
                     size="lg"
                 />
             </div>

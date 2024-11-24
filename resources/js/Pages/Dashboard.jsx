@@ -13,7 +13,7 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 
-export default function Dashboard({ classrooms }) {
+export default function Dashboard({ classrooms, appUrl }) {
     const [code, setCode] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [showLeaveModal, setShowLeaveModal] = useState(false);
@@ -58,7 +58,7 @@ export default function Dashboard({ classrooms }) {
     const closeLeaveModal = () => setShowLeaveModal(false);
 
     return (
-        <AuthenticatedLayout>
+        <AuthenticatedLayout appUrl={appUrl}>
             <Head title="Dashboard" />
 
             <div className="mx-auto w-full px-8 py-6 flex flex-col min-h-screen">
@@ -72,7 +72,7 @@ export default function Dashboard({ classrooms }) {
                             type="text"
                             value={code}
                             onChange={(e) => setCode(e.target.value)}
-                            placeholder="Input classroom code"
+                            placeholder="Masukkan kode kelas"
                             required
                         />
                         <Button
@@ -86,9 +86,7 @@ export default function Dashboard({ classrooms }) {
                     </form>
                 </div>
 
-                {classrooms.length === 0 && (
-                    <p>You are not enrolled in any classrooms yet.</p>
-                )}
+                {classrooms.length === 0 && <p>Tidak ada kelas</p>}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {classrooms.map((classroom) => (
@@ -106,14 +104,14 @@ export default function Dashboard({ classrooms }) {
                                         isBordered
                                         radius="full"
                                         size="md"
-                                        src={`http://192.168.43.49:8000/storage/${classroom.teacher.photo_profile}`}
+                                        src={`${appUrl}/storage/${classroom.teacher.photo_profile}`}
                                     />
                                     <div className="flex flex-col gap-1 items-start justify-center">
                                         <h4 className="text-xl font-semibold leading-none text-amber-500">
                                             {classroom.name}
                                         </h4>
                                         <h5 className="text-small tracking-tight text-default-400">
-                                            Teacher : {classroom.teacher.name}
+                                            Pengajar : {classroom.teacher.name}
                                         </h5>
                                     </div>
                                 </div>

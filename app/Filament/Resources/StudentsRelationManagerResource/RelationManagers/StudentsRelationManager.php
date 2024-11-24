@@ -10,13 +10,13 @@ class StudentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'students';
 
-    protected static ?string $title = 'Joined Students';
+    protected static ?string $title = 'Siswa yang Tergabung';
 
     public function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('name')->sortable()->searchable()->label('Nama Siswa'),
                 Tables\Columns\TextColumn::make('email')->sortable()->searchable(),
             ])
             ->filters([
@@ -30,7 +30,7 @@ class StudentsRelationManager extends RelationManager
                     ->action(function ($record) {
                         $this->ownerRecord->students()->detach($record->id);
                     })
-                    ->label('Kick Out'),
+                    ->label('Keluarkan Siswa'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

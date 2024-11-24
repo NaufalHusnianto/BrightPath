@@ -1,15 +1,13 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function QuizHistory({ quizzes }) {
-    console.log(quizzes);
-
+export default function QuizHistory({ quizzes, appUrl }) {
     return (
-        <Authenticated>
+        <Authenticated appUrl={appUrl}>
             <Head title="Quiz History" />
 
             <div className="container mx-auto p-12">
-                <h1 className="text-2xl font-bold mb-4">Quiz History</h1>
+                <h1 className="text-2xl font-bold mb-4">Riwayat Quiz</h1>
                 {quizzes.length > 0 ? (
                     <table className="w-full border-collapse border border-foreground-200">
                         <thead>
@@ -18,16 +16,16 @@ export default function QuizHistory({ quizzes }) {
                                     No
                                 </th>
                                 <th className="border border-foreground-200 px-4 py-2">
-                                    Quiz Title
+                                    Judul
                                 </th>
                                 <th className="border border-foreground-200 px-4 py-2">
-                                    Score
+                                    Nilai
                                 </th>
                                 <th className="border border-foreground-200 px-4 py-2">
-                                    Submitted At
+                                    Dikumpulkan Pada
                                 </th>
                                 <th className="border border-foreground-200 px-4 py-2">
-                                    Owner Quiz
+                                    Pemilik Quiz
                                 </th>
                             </tr>
                         </thead>

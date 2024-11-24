@@ -2,10 +2,11 @@ import Footer from "@/Components/Footer";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Tasks = ({ tasks }) => {
+const Tasks = ({ tasks, appUrl }) => {
     return (
         <Authenticated
             header={<h1 className="text-2xl font-bold">My Tasks</h1>}
+            appUrl={appUrl}
         >
             <Head title="Tasks" />
 
@@ -32,9 +33,6 @@ const Tasks = ({ tasks }) => {
                                             {task.classroom.name}
                                         </span>
                                     </p>
-                                    {/* <p className="text-gray-500">
-                                        {task.description}
-                                    </p> */}
                                     <p className="text-sm text-amber-500 mt-3">
                                         Deadline: {task.deadline}
                                     </p>
@@ -74,7 +72,7 @@ const Tasks = ({ tasks }) => {
                                             </p>
                                         ) : (
                                             <p className="text-sm text-amber-500">
-                                                Submited
+                                                Terkirim Tepat Waktu
                                             </p>
                                         )}
                                         {task.submissions[0].score ? (

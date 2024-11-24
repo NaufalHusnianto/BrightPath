@@ -45,27 +45,31 @@ class StatsOverview extends BaseWidget
         } else {
             return [
                 Stat::make('Users', User::count() - 1)
-                    ->description('All Users')
+                    ->label('Pengguna')
+                    ->description('Jumlah Pengguna')
                     ->descriptionIcon('heroicon-o-users')
                     ->descriptionColor('primary'),
                 Stat::make('Teachers', User::role('teacher')->count())
-                    ->description('All Teachers')
+                    ->label('Guru')
+                    ->description('Jumlah Guru')
                     ->descriptionIcon('heroicon-o-user')
                     ->descriptionColor('primary'),
                 Stat::make('Students', User::role('student')->count())
-                    ->description('All Students')
+                    ->label('Siswa')
+                    ->description('Jumlah Siswa')
                     ->descriptionIcon('heroicon-o-users')
                     ->descriptionColor('primary'),
                 Stat::make('Classrooms', Classroom::count())
-                    ->description('All Classrooms')
+                    ->label('Kelas')
+                    ->description('Jumlah Classrooms')
                     ->descriptionIcon('heroicon-o-academic-cap')
                     ->descriptionColor('primary'),
                 Stat::make('Learning Modules', LearningModule::count())
-                    ->description('All Learning Modules')
+                    ->description('Jumlah Learning Modules')
                     ->descriptionIcon('heroicon-o-clipboard-document-list')
                     ->descriptionColor('primary'),
                 Stat::make('Tasks', Task::count())
-                    ->description('All Tasks')
+                    ->description('Jumlah Task')
                     ->descriptionIcon('heroicon-o-clipboard-document-check')
                     ->descriptionColor('primary'),
             ];

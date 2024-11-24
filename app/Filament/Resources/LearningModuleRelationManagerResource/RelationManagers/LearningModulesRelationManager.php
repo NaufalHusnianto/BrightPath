@@ -15,10 +15,10 @@ class LearningModulesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->searchable(),
-                Tables\Columns\TextColumn::make('description')->searchable(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')->dateTime(),
+                Tables\Columns\TextColumn::make('title')->searchable()->label('Judul Learning Module'),
+                Tables\Columns\TextColumn::make('description')->searchable()->label('Deskripsi'),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Dibuat pada'),
+                Tables\Columns\TextColumn::make('updated_at')->dateTime()->label('Diperbarui pada'),
             ])
             ->filters([
                 //

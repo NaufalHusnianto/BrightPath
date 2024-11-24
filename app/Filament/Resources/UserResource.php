@@ -36,6 +36,7 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nama')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
@@ -51,6 +52,7 @@ class UserResource extends Resource
                     ->preload()
                     ->searchable(),
                 Forms\Components\FileUpload::make('photo_profile')
+                    ->label('Foto Profil')
                     ->image()
             ]);
     }
@@ -71,22 +73,26 @@ class UserResource extends Resource
             )
             ->columns([
                 Tables\Columns\ImageColumn::make('photo_profile')
-                    ->label('Photo Profile'),
+                    ->label('Foto Profil'),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('roles.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email_verified_at')
+                    ->label('Email Terverifikasi pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Diperbarui pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

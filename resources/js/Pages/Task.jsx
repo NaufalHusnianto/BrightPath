@@ -3,7 +3,7 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 
-export default function Task({ tasks }) {
+export default function Task({ tasks, appUrl }) {
     const { data, setData, post, errors } = useForm({
         submission: null,
     });
@@ -66,7 +66,7 @@ export default function Task({ tasks }) {
     }, [tasks.description]);
 
     return (
-        <Authenticated>
+        <Authenticated appUrl={appUrl}>
             <Head title="Task" />
 
             <div className="w-full p-16 bg-content1 flex justify-between items-center border-b border-foreground-200">
@@ -101,7 +101,7 @@ export default function Task({ tasks }) {
                 {tasks.submissions[0] ? (
                     <div className="p-4">
                         <div className="text-amber-500 font-bold">
-                            Task has been submitted{" "}
+                            Task sudah dikirim pada{" "}
                             {formatDate(tasks.submissions[0].created_at)}.
                         </div>
 
@@ -109,12 +109,10 @@ export default function Task({ tasks }) {
                             tasks.submissions[0].created_at,
                             tasks.deadline
                         ) ? (
-                            <p className="text-red-500 font-bold">
-                                submitted late
-                            </p>
+                            <p className="text-red-500 font-bold">Terlambat</p>
                         ) : (
                             <p className="text-green-500 font-bold">
-                                Submitted on Time
+                                Tepat waktu
                             </p>
                         )}
 
@@ -122,14 +120,14 @@ export default function Task({ tasks }) {
                             href={"/storage/" + tasks.submissions[0].file_path}
                             className="text-blue-500 mt-5"
                         >
-                            Open File Submission
+                            Buka File Tugas
                         </a>
                         <div className="bg-content2 p-5 rounded-lg mt-8 mb-4">
                             <h2 className="text-3xl font-bold">
-                                Score :{" "}
+                                Nilai :{" "}
                                 <span className="text-amber-500">
                                     {tasks.submissions[0].score ??
-                                        "Not Scored Yet"}
+                                        "Belum Dinilai"}
                                 </span>
                             </h2>
                             <p>{tasks.submissions[0].feedback}</p>

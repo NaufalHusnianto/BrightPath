@@ -4,7 +4,7 @@ import { Head, router } from "@inertiajs/react";
 import { Button, Divider } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 
-export default function Module({ modules, auth }) {
+export default function Module({ modules, auth, appUrl }) {
     const [processedContent, setProcessedContent] = useState("");
     const [data, setData] = useState("");
 
@@ -79,7 +79,7 @@ export default function Module({ modules, auth }) {
     };
 
     return (
-        <Authenticated>
+        <Authenticated appUrl={appUrl}>
             <Head title="Module" />
 
             <div className="w-full p-16 bg-content1 flex justify-between items-center border-b border-foreground-200">

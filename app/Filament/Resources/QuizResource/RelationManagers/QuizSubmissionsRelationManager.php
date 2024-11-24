@@ -31,10 +31,10 @@ class QuizSubmissionsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('id')
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')->searchable()->label('Student Name'),
-                Tables\Columns\TextColumn::make('score'),
-                Tables\Columns\TextColumn::make('answers'),
-                Tables\Columns\TextColumn::make('submitted_at')
+                Tables\Columns\TextColumn::make('user.name')->searchable()->label('Nama Siswa'),
+                Tables\Columns\TextColumn::make('score')->label('Nilai')->sortable(),
+                Tables\Columns\TextColumn::make('answers')->label('Jawaban'),
+                Tables\Columns\TextColumn::make('submitted_at')->label('Dikumpulkan pada')
             ])
             ->filters([
                 //
@@ -44,12 +44,12 @@ class QuizSubmissionsRelationManager extends RelationManager
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
-                // Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                // Tables\Actions\BulkActionGroup::make([
-                //     Tables\Actions\DeleteBulkAction::make(),
-                // ]),
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 }

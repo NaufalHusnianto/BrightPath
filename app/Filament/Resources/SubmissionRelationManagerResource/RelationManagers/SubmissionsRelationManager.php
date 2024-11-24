@@ -30,7 +30,7 @@ class SubmissionsRelationManager extends RelationManager
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
-                    ->label('Submitted by')
+                    ->label('Dikirim oleh')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('file_path')
                     ->label('Submission File')
@@ -38,7 +38,7 @@ class SubmissionsRelationManager extends RelationManager
                     ->openUrlInNewTab(),
                 Tables\Columns\TextColumn::make('score'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Submitted At')
+                    ->label('Dikirim pada')
                     ->dateTime(),
             ])
             ->filters([

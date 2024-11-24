@@ -20,7 +20,7 @@ class ClassroomController extends Controller
             ->get();
 
         return Inertia::render('Dashboard', [
-            'classrooms' => $classrooms,
+            'classrooms' => $classrooms
         ]);
     }
 

@@ -26,19 +26,19 @@ class DiscussionsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')->label('Users'),
+                Tables\Columns\TextColumn::make('user.name')->label('Pengguna'),
                 Tables\Columns\TextColumn::make('content'),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Sent At'),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Terkirim pada'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->modalHeading('Send Message')
-                    ->modalSubmitActionLabel('Send')
+                    ->modalHeading('Kirim Pesan')
+                    ->modalSubmitActionLabel('Kirim')
                     ->createAnother(false)
-                    ->label('Send Message'),
+                    ->label('Kirim Pesan'),
             ])
             ->actions([
                 Tables\Actions\DeleteAction::make(),

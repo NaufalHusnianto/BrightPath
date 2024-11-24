@@ -16,10 +16,9 @@ export default function VerifyEmail({ status }) {
             <Head title="Email Verification" />
 
             <div className="mb-4 text-sm">
-                Thanks for signing up! Before getting started, could you verify
-                your email address by clicking on the link we just emailed to
-                you? If you didn't receive the email, we will gladly send you
-                another.
+                Terima kasih telah mendaftar di BrightPath. Sebelum melanjutkan,
+                segera verifikasi alamat email Anda menggunakan tombol di bawah
+                ini.
             </div>
 
             {status === "verification-link-sent" && (

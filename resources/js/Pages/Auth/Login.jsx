@@ -84,7 +84,7 @@ export default function Login({ status, canResetPassword }) {
                             href={route("password.request")}
                             className="rounded-md text-xs underline hover:text-amber-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         >
-                            Forgot your password?
+                            Lupa password?
                         </Link>
                     )}
 
@@ -92,7 +92,7 @@ export default function Login({ status, canResetPassword }) {
                         href={route("register")}
                         className="rounded-md text-xs underline hover:text-amber-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
-                        Don't have an account?
+                        Belum punya akun?
                     </Link>
 
                     <PrimaryButton

@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\QuizResource\Pages;
-use App\Filament\Resources\QuizResource\RelationManagers;
 use App\Filament\Resources\QuizResource\RelationManagers\QuizSubmissionsRelationManager;
 use App\Models\Quiz;
 use App\Models\User;
@@ -12,8 +11,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -32,6 +29,7 @@ class QuizResource extends Resource
                 Forms\Components\Group::make([
                     Forms\Components\Section::make([
                         Forms\Components\Select::make('teacher_id')
+                            ->label('Guru/Pengajar')
                             ->relationship('teacher', 'name')
                             ->required()
                             ->options(function () use ($user) {
@@ -43,12 +41,14 @@ class QuizResource extends Resource
                             })
                             ->default($user->id),
                         Forms\Components\TextInput::make('code_quiz')
+                            ->label('Kode Quiz')
                             ->required()
                             ->maxLength(255)
                             ->default(function () {
                                 return Str::random(6);
                             }),
                         Forms\Components\TextInput::make('title')
+                            ->label('Judul Quiz')
                             ->required()
                             ->maxLength(255),
                     ]),
@@ -57,11 +57,11 @@ class QuizResource extends Resource
                     Forms\Components\Section::make([
                         Forms\Components\Repeater::make('quizItems')
                             ->relationship()
-                            ->label('Questions Items')
+                            ->label('Soal Quiz')
                             ->schema([
                                 Forms\Components\RichEditor::make('question')
-                                    ->required()
-                                    ->maxLength(255),
+                                    ->label('Soal')
+                                    ->required(),
                                 Forms\Components\TextInput::make('choices.A')
                                     ->required(),
                                 Forms\Components\TextInput::make('choices.B')
@@ -71,6 +71,7 @@ class QuizResource extends Resource
                                 Forms\Components\TextInput::make('choices.D')
                                     ->required(),
                                 Forms\Components\Select::make('answer')
+                                    ->label('Jawaban')
                                     ->required()
                                     ->options([
                                         'A' => 'A',
@@ -81,7 +82,7 @@ class QuizResource extends Resource
                             ])
                             ->minItems(1)
                             ->defaultItems(1)
-                            ->maxItems(10),
+                            ->maxItems(50),
                     ])
                 ])->columnSpanFull(),
             ]);
@@ -92,17 +93,21 @@ class QuizResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('teacher.name')
-                    ->numeric()
-                    ->sortable(),
+                    ->searchable()
+                    ->label('Guru/Pengajar'),
                 Tables\Columns\TextColumn::make('title')
+                    ->label('Judul Quiz')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('code_quiz')
+                    ->label('Kode Quiz')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Diubah pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

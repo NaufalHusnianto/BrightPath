@@ -148,7 +148,7 @@ export default function Register() {
                         href={route("login")}
                         className="rounded-md text-sm underline hover:text-amber-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
-                        Already registered?
+                        Sudah punya akun?
                     </Link>
 
                     <PrimaryButton className="ms-4" disabled={processing}>

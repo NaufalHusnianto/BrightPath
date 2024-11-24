@@ -7,13 +7,12 @@ import { Head } from "@inertiajs/react";
 import { Button } from "@nextui-org/react";
 import { useState } from "react";
 
-export default function Brighty(geminiAIKey) {
-    console.log(geminiAIKey.geminiAIKey);
+export default function Brighty({ appUrl, geminiAIKey }) {
     const [userInput, setUserInput] = useState("");
     const [chatHistory, setChatHistory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const genAI = new GoogleGenerativeAI(geminiAIKey.geminiAIKey);
+    const genAI = new GoogleGenerativeAI(geminiAIKey);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const handleUserInput = (e) => {
@@ -46,7 +45,7 @@ export default function Brighty(geminiAIKey) {
     };
 
     return (
-        <Authenticated>
+        <Authenticated appUrl={appUrl}>
             <Head title="Brighty" />
 
             <div className="flex min-h-screen flex-col items-center py-20">
@@ -65,7 +64,7 @@ export default function Brighty(geminiAIKey) {
                 <div className="flex items-center w-3/4 mt-4 gap-3">
                     <input
                         type="text"
-                        placeholder="ask brighty ..."
+                        placeholder="Tanya sesuatu..."
                         className="w-full rounded-xl bg-content2 px-4 py-4 text-foreground border-none"
                         value={userInput}
                         onChange={handleUserInput}
@@ -76,7 +75,7 @@ export default function Brighty(geminiAIKey) {
                         onClick={sendMessage}
                         disabled={isLoading}
                     >
-                        Send
+                        Kirim
                     </Button>
                 </div>
 
@@ -87,7 +86,7 @@ export default function Brighty(geminiAIKey) {
                         onClick={clearChat}
                         disabled={isLoading}
                     >
-                        Clear Chat
+                        Bersihkan Chat
                     </Button>
                 )}
             </div>

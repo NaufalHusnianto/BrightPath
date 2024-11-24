@@ -1,12 +1,12 @@
 import Footer from "@/Components/Footer";
 import TextInput from "@/Components/TextInput";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import { Button } from "@nextui-org/react";
 import axios from "axios";
 import { useState } from "react";
 
-export default function Quizzes({ auth }) {
+export default function Quizzes({ auth, appUrl }) {
     const [code, setCode] = useState("");
     const [quiz, setQuiz] = useState([]);
     const [answers, setAnswers] = useState({});
@@ -44,21 +44,23 @@ export default function Quizzes({ auth }) {
     };
 
     const submitQuiz = async () => {
-        alert("Quiz submitted!");
         setError("");
         setIsLoading(true);
 
-        const payload = {
-            quiz_id: quiz.id,
-            student_id: auth.user.id,
-            answers,
-        };
-
-        console.log("Payload:", payload);
-
         try {
-            const response = await axios.post("/quiz/submit", payload);
-            console.log("Response:", response.data);
+            const response = await axios.post("/quiz/submit", {
+                quiz_id: quiz.id,
+                student_id: auth.user.id,
+                answers,
+            });
+            console.log("Response:", response);
+
+            if (response.data) {
+                setAnswers({});
+                setQuiz({});
+                setIsQuizLoaded(false);
+                router.visit("/quiz/history");
+            }
         } catch (error) {
             console.error("Error:", error.response?.data || error.message);
             setError(error.response?.data?.message || "Error submitting quiz.");
@@ -68,7 +70,7 @@ export default function Quizzes({ auth }) {
     };
 
     return (
-        <Authenticated>
+        <Authenticated appUrl={appUrl}>
             <Head title="Quizzes" />
 
             <div className="flex items-center flex-col min-h-screen mt-16">
@@ -83,7 +85,7 @@ export default function Quizzes({ auth }) {
                                 type="text"
                                 value={code}
                                 onChange={(e) => setCode(e.target.value)}
-                                placeholder="Input quiz code"
+                                placeholder="Masukkan kode quiz"
                                 required
                             />
                             <Button
@@ -91,7 +93,7 @@ export default function Quizzes({ auth }) {
                                 onClick={handleJoin}
                                 color="warning"
                             >
-                                {isLoading ? "Joining..." : "Join"}
+                                {isLoading ? "Memulai..." : "Mulai Quiz"}
                             </Button>
                         </div>
 
@@ -102,7 +104,7 @@ export default function Quizzes({ auth }) {
                             color="default"
                             variant="ghost"
                         >
-                            BrightQuiz History
+                            Riwayat BrightQuiz
                         </Button>
                     </>
                 )}
@@ -159,7 +161,7 @@ export default function Quizzes({ auth }) {
                                 ))}
                             <Button
                                 variant="solid"
-                                className="bg-amber-500 font-bold"
+                                className="bg-amber-500 font-bold mb-8"
                                 onClick={submitQuiz}
                                 disabled={isLoading}
                             >

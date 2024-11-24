@@ -6,7 +6,7 @@ import { Avatar } from "@nextui-org/react";
 import { useState } from "react";
 import ButtonDarkMode from "@/Components/ButtonDarkMode";
 
-export default function Authenticated({ header, children }) {
+export default function Authenticated({ header, children, appUrl }) {
     const user = usePage().props.auth.user;
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -71,7 +71,7 @@ export default function Authenticated({ header, children }) {
 
                                                 {user.photo_profile ? (
                                                     <Avatar
-                                                        src={`http://192.168.43.49:8000/storage/${user.photo_profile}`}
+                                                        src={`${appUrl}/storage/${user.photo_profile}`}
                                                         isBordered
                                                     />
                                                 ) : (

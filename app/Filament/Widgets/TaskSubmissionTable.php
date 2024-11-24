@@ -16,7 +16,7 @@ class TaskSubmissionTable extends BaseWidget
 
     protected int | string | array $columnSpan = 'full';
 
-    protected static ?string $heading = 'Task Submissions';
+    protected static ?string $heading = 'Pengumpulan Tugas';
 
     public function table(Table $table): Table
     {
@@ -36,19 +36,19 @@ class TaskSubmissionTable extends BaseWidget
             ->query($query)
             ->columns([
                 Tables\Columns\TextColumn::make('classroom.name')
-                    ->label('Classroom')
+                    ->label('Kelas')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('title')
-                    ->label('Task Title')
+                    ->label('Tugas')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('classroom.students_count')
-                    ->label('Total Students')
+                    ->label('Jumlah Siswa Yang Ada')
                     ->getStateUsing(function (Task $record) {
                         return $record->classroom->students()->count();
                     })
                     ->sortable(),
                 Tables\Columns\TextColumn::make('submissions_count')
-                    ->label('Total Student Submited')
+                    ->label('Jumlah Siswa Yang Telah Submit')
                     ->sortable(),
             ]);
     }

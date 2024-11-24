@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Quiz;
 use App\Models\QuizSubmission;
 use Carbon\Carbon;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -35,7 +35,7 @@ class QuizController extends Controller
         ]);
     }
 
-    public function submit(Request $request): RedirectResponse
+    public function submit(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'quiz_id' => 'required|exists:quizzes,id',
@@ -44,30 +44,34 @@ class QuizController extends Controller
             'answers.*' => 'required|string|in:A,B,C,D',
         ]);
 
-        $quiz = Quiz::find($validated['quiz_id'])->with('quizItems')->first();
-        $answers = $validated['answers'];
-        $user = $validated['student_id'];
+        $quiz = Quiz::with('quizItems')->findOrFail($request->quiz_id);
+        
+        $answers = $request->answers;
+        $studentId = $request->student_id;
 
-        $correctAnswer = 0;
+        $correctAnswers = 0;
         $totalQuestions = $quiz->quizItems->count();
 
         foreach ($quiz->quizItems as $item) {
             if (isset($answers[$item->id]) && $answers[$item->id] === $item->answer) {
-                $correctAnswer++;
+                $correctAnswers++;
             }
         }
 
-        $score = ($correctAnswer / $totalQuestions) * 100;
+        $score = round(($correctAnswers / $totalQuestions) * 100, 2);
 
         $submission = QuizSubmission::create([
             'quiz_id' => $quiz->id,
-            'user_id' => $user,
+            'user_id' => $studentId,
             'answers' => json_encode($answers),
             'score' => $score,
             'submitted_at' => Carbon::now(),
         ]);
-    
-        return redirect()->route('quiz.history');
+
+        return response()->json([
+            'message' => 'Quiz submitted successfully',
+            'score' => $score,
+        ]);
     }
 
     public function history(): Response
