@@ -68,13 +68,14 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Installation/Deployment
 
- 1. Duplicate .env.example and rename it .env
- 2. Config .env file (APP_URL, APP_KEY, DB_CONNECTION, etc)
- 3. Add gemini API key "GEMINI_AI_KEY=**your api key**" to the .env file
- 4. Open terminal
- 5. Run "composer install"
- 6. Run "npm install"
- 7. Run "npm run build"
- 8. Run "php artisan migrate"
- 9. Initialize default role by run "php artisan db:seed --class=ShieldSeeder"
- 10. Create Super Admin account by run "php artisan shield:super-admin"
+1.  Duplicate .env.example and rename it .env
+2.  Config .env file (APP_URL, APP_KEY, DB_CONNECTION, etc)
+3.  Add gemini API key "GEMINI_AI_KEY=**your api key**" to the .env file
+4.  Open terminal
+5.  Run "composer install"
+6.  Run "npm install"
+7.  Run "npm run build"
+8.  Run "php artisan migrate"
+9.  Initialize default role by run "php artisan db:seed --class=ShieldSeeder"
+10. Create Super Admin account by run "php artisan shield:super-admin"
+11. Access admin panel on route /admin

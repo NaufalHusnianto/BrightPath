@@ -17,8 +17,8 @@ export default function VerifyEmail({ status }) {
 
             <div className="mb-4 text-sm">
                 Terima kasih telah mendaftar di BrightPath. Sebelum melanjutkan,
-                segera verifikasi alamat email Anda menggunakan tombol di bawah
-                ini.
+                segera verifikasi alamat email Anda melalui link yang dikirim ke
+                emailanda.
             </div>
 
             {status === "verification-link-sent" && (

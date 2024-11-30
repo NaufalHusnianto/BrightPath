@@ -21,6 +21,7 @@ export default function ForgotPassword({ status }) {
 
             <div className="mb-4 text-sm text-content1-foreground">
                 Lupa password? isikan email anda untuk lakukan reset password.
+                email berisi link reset password akan dikirimkan ke email anda
             </div>
 
             {status && (
